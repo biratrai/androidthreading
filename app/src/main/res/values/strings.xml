@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidThreading</string>
+    <string name="download">Download</string>
 </resources>
