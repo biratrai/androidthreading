@@ -23,11 +23,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Downloading", Toast.LENGTH_SHORT).show();
-                startDownload();
+                startRunnable();
             }
         });
     }
 
+    /**
+     * Method which creates a Runnable and a Thread.
+     */
+    private void startRunnable() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                startDownload();
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.setName("Download Thread");
+        thread.start();
+    }
+
+    /**
+     * Method that mimicks the download which usually takes long time.
+     */
     private void startDownload() {
         long endTime = System.currentTimeMillis() + DOWNLOAD_TIME;
         while (System.currentTimeMillis() < endTime) {
@@ -37,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "startDownload: ", e);
             }
         }
-        Toast.makeText(MainActivity.this, "Download Complete! ", Toast.LENGTH_SHORT).show();
+        showToast();
+    }
+
+    private void showToast() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, "Download Complete! ", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
