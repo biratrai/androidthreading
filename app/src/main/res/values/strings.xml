@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">AndroidThreading</string>
-    <string name="download">Download</string>
+    <string name="download">Run Executor</string>
     <string name="run_scheduled_executor_service">Run ScheduledExecutorService</string>
     <string name="run_executor_service">Run Executor Service</string>
     <string name="run_new_thread_executor">Run new Thread Executor</string>
