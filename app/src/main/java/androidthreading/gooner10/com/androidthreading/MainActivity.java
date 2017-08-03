@@ -21,8 +21,17 @@ public class MainActivity extends AppCompatActivity {
         executorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Downloading", Toast.LENGTH_SHORT).show();
-                startExecutor();
+                Toast.makeText(MainActivity.this, "Downloading with Executor", Toast.LENGTH_SHORT).show();
+                startExecutor("Executor");
+            }
+        });
+
+        Button newThreadExecutor = (Button) findViewById(R.id.ownThreadExecutor);
+        newThreadExecutor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Downloading with New Thread Executor", Toast.LENGTH_SHORT).show();
+                startNewThreadExecutor("New Thread Executor");
             }
         });
 
@@ -30,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         executorServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Downloading", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Downloading with Executor Service", Toast.LENGTH_SHORT).show();
                 startExecutorService();
             }
         });
@@ -39,10 +48,15 @@ public class MainActivity extends AppCompatActivity {
         scheduledExecutorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Downloading", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Downloading with Scheduled Executor Service", Toast.LENGTH_SHORT).show();
                 startScheduledExecutorService();
             }
         });
+    }
+
+    private void startNewThreadExecutor(String s) {
+        Executor executor = new SelfThreadExecutor();
+        executor.execute(new MySelfRunnable(this, s));
     }
 
     private void startExecutorService() {
@@ -53,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void startExecutor() {
+    private void startExecutor(String s) {
         Executor executor = new DirectExecutor();
-        executor.execute(new MyRunnable(this));
+        executor.execute(new MyRunnable(this, s));
     }
 }
