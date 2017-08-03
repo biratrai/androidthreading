@@ -4,4 +4,5 @@
     <string name="run_scheduled_executor_service">Run ScheduledExecutorService</string>
     <string name="run_executor_service">Run Executor Service</string>
     <string name="run_new_thread_executor">Run new Thread Executor</string>
+    <string name="run_serial_executor">Run Serial Executor</string>
 </resources>

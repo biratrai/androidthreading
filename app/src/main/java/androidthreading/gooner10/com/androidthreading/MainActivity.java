@@ -35,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button serialExecutor = (Button) findViewById(R.id.serialExecutor);
+        serialExecutor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Downloading with Serial Executor", Toast.LENGTH_SHORT).show();
+                startSerialExecutor("Serial Executor");
+            }
+        });
+
         Button executorServiceButton = (Button) findViewById(R.id.executorService);
         executorServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 startScheduledExecutorService();
             }
         });
+    }
+
+    private void startSerialExecutor(String s) {
+        Executor executor = new SerialExecutor(new SelfThreadExecutor());
+        executor.execute(new MySelfRunnable(this, s));
     }
 
     private void startNewThreadExecutor(String s) {
