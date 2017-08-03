@@ -50,4 +50,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "sendMessageToHandler for file " + file);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        thread.downloadHandler.getLooper().quit();
+    }
 }
