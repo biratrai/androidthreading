@@ -8,6 +8,7 @@ import java.util.concurrent.Executor;
 
 /**
  * Serial Executor that implements Executor interface and can run the tasks on different thread
+ * guaranteeing that serial execution of tasks happens
  */
 
 public class SerialExecutor implements Executor {
