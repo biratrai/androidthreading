@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ExecutorServiceActivity extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class ExecutorServiceActivity extends AppCompatActivity {
         runnableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(ExecutorServiceActivity.this, "Downloading with Runnable Executor Service", Toast.LENGTH_SHORT).show();
                 startRunnableExecutorService("Runnable Executor Service");
             }
         });
@@ -37,17 +41,38 @@ public class ExecutorServiceActivity extends AppCompatActivity {
         callableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCallableExecutorService();
+                Toast.makeText(ExecutorServiceActivity.this, "Downloading with Callable Executor Service", Toast.LENGTH_SHORT).show();
+                startCallableExecutorService("Callable Executor Service");
             }
         });
     }
 
-    private void startCallableExecutorService() {
-
+    private void startCallableExecutorService(final String s) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future future = executorService.submit(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                long endTime = System.currentTimeMillis() + DOWNLOAD_TIME;
+                while (System.currentTimeMillis() < endTime) {
+                    try {
+                        Log.d(TAG, "starting Download for " + s);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Log.e(TAG, "run: " + e.getMessage());
+                    }
+                }
+                return "from future";
+            }
+        });
+        try {
+            showToast(future.get().toString());
+        } catch (InterruptedException | ExecutionException e) {
+            Log.e(TAG, "startCallableExecutorService: ", e);
+        }
+        executorService.shutdown();
     }
 
     private void startRunnableExecutorService(final String s) {
-        Toast.makeText(ExecutorServiceActivity.this, "Downloading with Executor Service", Toast.LENGTH_SHORT).show();
         ExecutorService executorService = Executors.newFixedThreadPool(15);
         executorService.submit(new Runnable() {
             @Override
