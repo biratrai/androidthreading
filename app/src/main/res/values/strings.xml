@@ -5,4 +5,7 @@
     <string name="run_executor_service">Run Executor Service</string>
     <string name="run_new_thread_executor">Run new Thread Executor</string>
     <string name="run_serial_executor">Run Serial Executor</string>
+    <string name="title_activity_executor_service">ExecutorServiceActivity</string>
+    <string name="runnable_executorservice">Runnable ExecutorService</string>
+    <string name="callable_executorservice">Callable ExecutorService</string>
 </resources>
