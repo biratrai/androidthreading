@@ -8,4 +8,5 @@
     <string name="title_activity_executor_service">ExecutorServiceActivity</string>
     <string name="runnable_executorservice">Runnable ExecutorService</string>
     <string name="callable_executorservice">Callable ExecutorService</string>
+    <string name="threadpool_executor_service">Threadpool Executor Service</string>
 </resources>
